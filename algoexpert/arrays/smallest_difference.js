@@ -48,6 +48,20 @@
 
 const smallestDifference = (arrayOne, arrayTwo) => {
   // Write your code here.
+  let min = Infinity;
+  let matches = [];
+  for (const i of arrayOne) {
+    for (const j of arrayTwo) {
+      if (Math.abs(i - j) < min) {
+        min = Math.abs(i - j);
+        matches[0] = i;
+        matches[1] = j;
+      }
+    }
+  }
+  return matches;
 };
+
+console.log(smallestDifference([-1, 5, 10, 20, 28, 3], [26, 134, 135, 15, 17]));
 
 exports.smallestDifference = smallestDifference;
