@@ -15,15 +15,32 @@ You are expected to solve this challenge via recursion.
 You can check on the Resources tab for more details about recursion.
  */
 
+// 1. Normal Way
+const isPalindromeWay1 = (str) => {
+  let allLowercase = str.toLowerCase();
+  let charArr = allLowercase.split('');
+  let dict = 'abcdefghijklmnopqrstuvwxyz'.split('');
+
+  let formattedChars = [];
+
+  charArr.forEach((char) => {
+    if (dict.includes(char)) formattedChars.push(char);
+  });
+
+  return formattedChars.join('') === formattedChars.reverse().join('');
+};
+
+isPalindromeWay1("Masdam I'm Adam");
+
+// 2. Recursivelly
 const isPalindrome = (query) => {
-  console.log(query);
   return (
     !query ||
     (query[0] === query[query.length - 1] && isPalindrome(query.slice(1, -1)))
   );
 };
 
-console.log(isPalindrome('rotator'));
+console.log(isPalindrome("Madam I'm adam"));
 
 // ["rascal", "racecar", "madam", "adieu", "radar", "rotor", "abacus", "rotator", "scholars"],
 // [false, true, true, false, true, true, false, true, false]
