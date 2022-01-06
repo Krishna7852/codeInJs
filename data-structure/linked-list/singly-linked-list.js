@@ -9,6 +9,8 @@ class LinkedList {
   constructor() {
     this.head = null;
   }
+
+  // TODO: Add Function for the reverse list
   // Add the item into the list.
   add(val) {
     if (this.head === null) {

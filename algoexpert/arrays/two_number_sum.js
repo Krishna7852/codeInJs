@@ -20,8 +20,19 @@ sum. You can assume that there will be at most one pair of numbers
  */
 
 const twoNumberSum = (array, targetSum) => {
-  let result = [];
-  return result;
+  let pairs = [];
+  let hashTable = [];
+
+  for (let i = 0; i < array.length; i++) {
+    let currNum = array[i];
+    let counterpart = targetSum - currNum;
+    if (hashTable.indexOf(counterpart) !== -1) {
+      pairs.push([currNum, counterpart]);
+    }
+    hashTable.push(currNum);
+  }
+
+  return pairs;
 };
 
 console.log('working:', twoNumberSum([3, 5, -4, 8, 11, 1, -1, 6], 10));
