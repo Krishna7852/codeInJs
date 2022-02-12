@@ -88,10 +88,23 @@ Case 11:
   "array": [1, 2, 5, 7, 10, 13, 14, 15, 22, 28]
  */
 
+// O(nlog(n)) time | O(n) space - where n is the length of the array
 function minHeightBst(array) {
-  // Write your code here.
+  return constructMinHeightBst(array, null, 0, array.length - 1);
 }
-
+function constructMinHeightBst(array, bst, startIdx, endIdx) {
+  if (endIdx < startIdx) return;
+  const midIdx = Math.floor((startIdx + endIdx) / 2);
+  const valueToAdd = array[midIdx];
+  if (bst === null) {
+    bst = new BST(valueToAdd);
+  } else {
+    bst.insert(valueToAdd);
+  }
+  constructMinHeightBst(array, bst, startIdx, midIdx - 1);
+  constructMinHeightBst(array, bst, midIdx + 1, endIdx);
+  return bst;
+}
 class BST {
   constructor(value) {
     this.value = value;
@@ -117,3 +130,41 @@ class BST {
 }
 
 exports.minHeightBst = minHeightBst;
+// -----------------------------Test-----------------------------------
+
+function validateBst(tree) {
+  return validateBstHelper(tree, -Infinity, Infinity);
+}
+
+function validateBstHelper(tree, minValue, maxValue) {
+  if (tree === null) return true;
+  if (tree.value < minValue || tree.value >= maxValue) return false;
+  const leftIsValid = validateBstHelper(tree.left, minValue, tree.value);
+  return leftIsValid && validateBstHelper(tree.right, tree.value, maxValue);
+}
+
+function inOrderTraverse(tree, array) {
+  if (tree !== null) {
+    inOrderTraverse(tree.left, array);
+    array.push(tree.value);
+    inOrderTraverse(tree.right, array);
+  }
+  return array;
+}
+
+function getTreeHeight(tree, height = 0) {
+  if (tree === null) return height;
+  const leftTreeHeight = getTreeHeight(tree.left, height + 1);
+  const rightTreeHeight = getTreeHeight(tree.right, height + 1);
+  return Math.max(leftTreeHeight, rightTreeHeight);
+}
+const array = [1, 2, 5, 7, 10, 13, 14, 15, 22];
+const tree = minHeightBst(array);
+
+console.log('validateBst(tree):', validateBst(tree));
+console.log('getTreeHeight(tree):', getTreeHeight(tree));
+
+const inOrder = inOrderTraverse(tree, []);
+const expected = [1, 2, 5, 7, 10, 13, 14, 15, 22];
+
+console.log('inOrder Expected Like Above:', inOrder);

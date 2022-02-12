@@ -63,8 +63,18 @@
   "array": [-1, -1, -1, -1]
  */
 
+// O(n^2) time | O(n) space - where n is the length of the input array
 function arrayOfProducts(array) {
-  // Write your code here.
+  const products = [];
+  for (let i = 0; i < array.length; i++) {
+    let runningProduct = 1;
+    for (let j = 0; j < array.length; j++) {
+      if (i !== j) {
+        runningProduct *= array[j];
+      }
+      products[i] = runningProduct;
+    }
+  }
+  return products;
 }
-
 exports.arrayOfProducts = arrayOfProducts;

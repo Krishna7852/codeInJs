@@ -50,4 +50,4 @@ function largestRange(array) {
   }
   return bestRange;
 }
-largestRange([1, 11, 3, 0, 15, 5, 2, 4, 10, 7, 12, 6]);
+largestRange([-2, 1, -3, -1, 2, 1, -5, 4]);
